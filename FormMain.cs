@@ -17,5 +17,13 @@ namespace Assignment3
             InitializeComponent();
         }
 
+        private void btnSubmitCounts_Click(object sender, EventArgs e)
+        {
+            if(txtNumberOfAssignments is null)
+            {
+
+            }
+            //Create arrays
+        }
     }
 }
