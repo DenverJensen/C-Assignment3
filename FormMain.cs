@@ -28,6 +28,16 @@ namespace Assignment3
         /// </summary>
         public int[,] grades = new int[0, 0];
 
+        /// <summary>
+        /// array of strings to hold the letter grade for each student
+        /// </summary>
+        public string[] letters = new string[0];
+
+        /// <summary>
+        /// array to hold the average score for each student
+        /// </summary>
+        public double[] averages = new double[0];
+
         #endregion
 
         #region constructor
@@ -51,7 +61,7 @@ namespace Assignment3
             {
                 lblError.Visible = true;
             }
-            else if ((numStudents > 9 || numStudents < 1) || (numAssignments > 99 || numAssignments < 1))
+            else if ((numStudents > 10 || numStudents < 1) || (numAssignments > 99 || numAssignments < 1))
             {
                 lblError.Visible = true;
             }
@@ -64,11 +74,14 @@ namespace Assignment3
 
                 //initialize student array
                 students = new string[numStudents];
+                averages = new double[numStudents];
+                letters = new string[numStudents];
 
                 //add blank students to list with placeholder
                 for (int i = 0; i < students.Length; i++)
                 {
                     students[i] = "Student #" + (i + 1);
+                    letters[i] = "F";
 
                 }
 
@@ -105,6 +118,8 @@ namespace Assignment3
                     headers = headers + "\t" + "#" + (i + 1);
                 }
 
+                headers += "\t" + "AVG" + "\t" + "Grade";
+
                 rtbResults.Text = headers;
 
                 for (int i = 0; i < grades.GetLength(0); i++)
@@ -114,6 +129,8 @@ namespace Assignment3
                     {
                         rtbResults.Text += "\t" + grades[i, j].ToString();
                     }
+                    rtbResults.Text += "\t" + averages[i].ToString();
+                    rtbResults.Text += "\t" + letters[i].ToString() + "\t" + "";
                 }
             }
         }
@@ -157,11 +174,15 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnPrevStudent_Click(object sender, EventArgs e)
         {
-            if (studentIndex != 1)
+            if (students.Length > 0)
             {
-                studentIndex = studentIndex - 1;
-                lblStudentName.Text = students[studentIndex - 1].ToString();
+                if (studentIndex != 1)
+                {
+                    studentIndex = studentIndex - 1;
+                    lblStudentName.Text = students[studentIndex - 1].ToString();
+                }
             }
+
         }
 
         /// <summary>
@@ -213,9 +234,87 @@ namespace Assignment3
             }
             else
             {
+                // if valid, update score
                 lblError2.Visible = false;
                 grades[(studentIndex - 1), (assignmentNumber - 1)] = score;
+                updateGrades();
                 putResults();
+            }
+        }
+
+        /// <summary>
+        /// method to update averages and letter grades
+        /// </summary>
+        private void updateGrades()
+        {
+            //update averages and letter grades
+            double total = 0;//total aggregate score
+            for (int i = 0; i < grades.GetLength(0); i++)
+            {
+                if (i == (studentIndex - 1))
+                {
+                    for (int j = 0; j < grades.GetLength(1); j++)
+                    {
+                        total += grades[i, j];
+                    }
+                    averages[i] = (total / grades.GetLength(1));
+                }
+            }
+
+            // loop thru averages to create letter grades for each student with cascading if statement
+            for (int i = 0; i < averages.Length; i++)
+            {
+                //students[i] = "Student #" + (i + 1);
+                //letters[i] = "F";
+                if (averages[i] > 93)
+                {
+                    letters[i] = "A";
+                }
+                else if (averages[i] > 90)
+                {
+                    letters[i] = "A-";
+                }
+                else if (averages[i] > 87)
+                {
+                    letters[i] = "B+";
+                }
+                else if (averages[i] > 83)
+                {
+                    letters[i] = "B";
+                }
+                else if (averages[i] > 80)
+                {
+                    letters[i] = "B-";
+                }
+                else if (averages[i] > 77)
+                {
+                    letters[i] = "C+";
+                }
+                else if (averages[i] > 73)
+                {
+                    letters[i] = "C";
+                }
+                else if (averages[i] > 70)
+                {
+                    letters[i] = "C-";
+                }
+                else if (averages[i] > 67)
+                {
+                    letters[i] = "D+";
+                }
+                else if (averages[i] > 63)
+                {
+                    letters[i] = "D";
+                }
+                else if (averages[i] > 60)
+                {
+                    letters[i] = "D-";
+                }
+                else
+                {
+                    letters[i] = "E";
+                }
+
             }
         }
 
@@ -236,6 +335,8 @@ namespace Assignment3
             txtStudentName.Text = "";
             txtAssignmentNumber.Text = "";
             txtAssignmentScore.Text = "";
+            lblError.Text = "";
+            lblError2.Text = "";
         }
     }
 }
