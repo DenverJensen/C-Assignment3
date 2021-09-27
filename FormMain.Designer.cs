@@ -51,8 +51,9 @@ namespace Assignment3
             this.lblAssignmentScore = new System.Windows.Forms.Label();
             this.txtAssignmentNumber = new System.Windows.Forms.TextBox();
             this.lblNumberAssignments = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbResults = new System.Windows.Forms.RichTextBox();
             this.btnDisplayScores = new System.Windows.Forms.Button();
+            this.lblError = new System.Windows.Forms.Label();
             this.gb_count.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbStudentInfo.SuspendLayout();
@@ -93,6 +94,7 @@ namespace Assignment3
             // txtNumberOfStudents
             // 
             this.txtNumberOfStudents.Location = new System.Drawing.Point(161, 34);
+            this.txtNumberOfStudents.MaxLength = 1;
             this.txtNumberOfStudents.Name = "txtNumberOfStudents";
             this.txtNumberOfStudents.Size = new System.Drawing.Size(70, 20);
             this.txtNumberOfStudents.TabIndex = 2;
@@ -132,53 +134,57 @@ namespace Assignment3
             this.groupBox1.Controls.Add(this.btnFirstStudent);
             this.groupBox1.Location = new System.Drawing.Point(61, 153);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(642, 88);
+            this.groupBox1.Size = new System.Drawing.Size(642, 67);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Navigation";
             // 
             // btnLastStudent
             // 
-            this.btnLastStudent.Location = new System.Drawing.Point(519, 39);
+            this.btnLastStudent.Location = new System.Drawing.Point(519, 24);
             this.btnLastStudent.Name = "btnLastStudent";
             this.btnLastStudent.Size = new System.Drawing.Size(91, 23);
             this.btnLastStudent.TabIndex = 3;
             this.btnLastStudent.Text = "Last Student >>";
             this.btnLastStudent.UseVisualStyleBackColor = true;
+            this.btnLastStudent.Click += new System.EventHandler(this.btnLastStudent_Click);
             // 
             // btnNextStudent
             // 
-            this.btnNextStudent.Location = new System.Drawing.Point(360, 39);
+            this.btnNextStudent.Location = new System.Drawing.Point(360, 24);
             this.btnNextStudent.Name = "btnNextStudent";
             this.btnNextStudent.Size = new System.Drawing.Size(101, 23);
             this.btnNextStudent.TabIndex = 2;
             this.btnNextStudent.Text = "Next Student >";
             this.btnNextStudent.UseVisualStyleBackColor = true;
+            this.btnNextStudent.Click += new System.EventHandler(this.btnNextStudent_Click);
             // 
             // btnPrevStudent
             // 
-            this.btnPrevStudent.Location = new System.Drawing.Point(185, 39);
+            this.btnPrevStudent.Location = new System.Drawing.Point(185, 24);
             this.btnPrevStudent.Name = "btnPrevStudent";
             this.btnPrevStudent.Size = new System.Drawing.Size(110, 23);
             this.btnPrevStudent.TabIndex = 1;
             this.btnPrevStudent.Text = "< Prev Student";
             this.btnPrevStudent.UseVisualStyleBackColor = true;
+            this.btnPrevStudent.Click += new System.EventHandler(this.btnPrevStudent_Click);
             // 
             // btnFirstStudent
             // 
-            this.btnFirstStudent.Location = new System.Drawing.Point(30, 39);
+            this.btnFirstStudent.Location = new System.Drawing.Point(30, 24);
             this.btnFirstStudent.Name = "btnFirstStudent";
             this.btnFirstStudent.Size = new System.Drawing.Size(103, 23);
             this.btnFirstStudent.TabIndex = 0;
             this.btnFirstStudent.Text = "<< First Student";
             this.btnFirstStudent.UseVisualStyleBackColor = true;
+            this.btnFirstStudent.Click += new System.EventHandler(this.btnFirstStudent_Click);
             // 
             // gbStudentInfo
             // 
             this.gbStudentInfo.Controls.Add(this.btnSaveName);
             this.gbStudentInfo.Controls.Add(this.txtStudentName);
             this.gbStudentInfo.Controls.Add(this.lblStudentName);
-            this.gbStudentInfo.Location = new System.Drawing.Point(61, 264);
+            this.gbStudentInfo.Location = new System.Drawing.Point(61, 232);
             this.gbStudentInfo.Name = "gbStudentInfo";
             this.gbStudentInfo.Size = new System.Drawing.Size(642, 78);
             this.gbStudentInfo.TabIndex = 3;
@@ -193,6 +199,7 @@ namespace Assignment3
             this.btnSaveName.TabIndex = 2;
             this.btnSaveName.Text = "Save Name";
             this.btnSaveName.UseVisualStyleBackColor = true;
+            this.btnSaveName.Click += new System.EventHandler(this.btnSaveName_Click);
             // 
             // txtStudentName
             // 
@@ -217,7 +224,7 @@ namespace Assignment3
             this.gbStudentScoreInfo.Controls.Add(this.lblAssignmentScore);
             this.gbStudentScoreInfo.Controls.Add(this.txtAssignmentNumber);
             this.gbStudentScoreInfo.Controls.Add(this.lblNumberAssignments);
-            this.gbStudentScoreInfo.Location = new System.Drawing.Point(61, 358);
+            this.gbStudentScoreInfo.Location = new System.Drawing.Point(61, 327);
             this.gbStudentScoreInfo.Name = "gbStudentScoreInfo";
             this.gbStudentScoreInfo.Size = new System.Drawing.Size(642, 106);
             this.gbStudentScoreInfo.TabIndex = 4;
@@ -265,13 +272,13 @@ namespace Assignment3
             this.lblNumberAssignments.TabIndex = 0;
             this.lblNumberAssignments.Text = "Enter Assignment Number (1-X): ";
             // 
-            // richTextBox1
+            // rtbResults
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 487);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(776, 219);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
+            this.rtbResults.Location = new System.Drawing.Point(12, 453);
+            this.rtbResults.Name = "rtbResults";
+            this.rtbResults.Size = new System.Drawing.Size(776, 206);
+            this.rtbResults.TabIndex = 5;
+            this.rtbResults.Text = "";
             // 
             // btnDisplayScores
             // 
@@ -282,13 +289,26 @@ namespace Assignment3
             this.btnDisplayScores.Text = "Display Scores";
             this.btnDisplayScores.UseVisualStyleBackColor = true;
             // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(130, 133);
+            this.lblError.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(278, 13);
+            this.lblError.TabIndex = 7;
+            this.lblError.Text = "Please enter a valid number of Students and Assignments";
+            this.lblError.Visible = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 718);
+            this.ClientSize = new System.Drawing.Size(800, 670);
+            this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnDisplayScores);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtbResults);
             this.Controls.Add(this.gbStudentScoreInfo);
             this.Controls.Add(this.gbStudentInfo);
             this.Controls.Add(this.groupBox1);
@@ -304,6 +324,7 @@ namespace Assignment3
             this.gbStudentScoreInfo.ResumeLayout(false);
             this.gbStudentScoreInfo.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -326,13 +347,14 @@ namespace Assignment3
         private System.Windows.Forms.TextBox txtStudentName;
         private System.Windows.Forms.Label lblStudentName;
         private System.Windows.Forms.GroupBox gbStudentScoreInfo;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbResults;
         private System.Windows.Forms.Button btnSaveScore;
         private System.Windows.Forms.TextBox txtAssignmentScore;
         private System.Windows.Forms.Label lblAssignmentScore;
         private System.Windows.Forms.TextBox txtAssignmentNumber;
         private System.Windows.Forms.Label lblNumberAssignments;
         private System.Windows.Forms.Button btnDisplayScores;
+        private System.Windows.Forms.Label lblError;
     }
 }
 
