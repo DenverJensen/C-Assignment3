@@ -21,13 +21,12 @@ namespace Assignment3
         /// <summary>
         /// array of students
         /// </summary>
-        //public Array students;
-        public string[] students;
+        public string[] students = new string[0];
 
         /// <summary>
         ///  multi dimensional array for students grades
         /// </summary>
-        public int[,] grades;
+        public int[,] grades = new int[0, 0];
 
         #endregion
 
@@ -100,17 +99,13 @@ namespace Assignment3
             }
             else
             {
-
-                string headers = "Student" + "\t"; // column headers for output
-
+                string headers = "Student" + "\t";
                 for (int i = 0; i < grades.GetLength(1); i++)
                 {
                     headers = headers + "\t" + "#" + (i + 1);
                 }
 
-
                 rtbResults.Text = headers;
-
 
                 for (int i = 0; i < grades.GetLength(0); i++)
                 {
@@ -130,10 +125,13 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnSaveName_Click(object sender, EventArgs e)
         {
-            students[studentIndex - 1] = txtStudentName.Text;
-            lblStudentName.Text = txtStudentName.Text + ": ";
-            txtStudentName.Text = "";
-            putResults();
+            if (students.Length > 0)
+            {
+                students[studentIndex - 1] = txtStudentName.Text;
+                lblStudentName.Text = txtStudentName.Text + ": ";
+                txtStudentName.Text = "";
+                putResults();
+            }
         }
 
         /// <summary>
@@ -143,10 +141,13 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnNextStudent_Click(object sender, EventArgs e)
         {
-            if (studentIndex != students.Length)
+            if (students.Length > 0)
             {
-                studentIndex = studentIndex + 1;
-                lblStudentName.Text = students[studentIndex - 1].ToString();
+                if (studentIndex != students.Length)
+                {
+                    studentIndex = studentIndex + 1;
+                    lblStudentName.Text = students[studentIndex - 1].ToString();
+                }
             }
         }
         /// <summary>
@@ -170,8 +171,11 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnFirstStudent_Click(object sender, EventArgs e)
         {
-            studentIndex = 1;
-            lblStudentName.Text = students[studentIndex - 1].ToString();
+            if (students.Length > 0)
+            {
+                studentIndex = 1;
+                lblStudentName.Text = students[studentIndex - 1].ToString();
+            }
         }
 
         /// <summary>
@@ -181,8 +185,12 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnLastStudent_Click(object sender, EventArgs e)
         {
-            studentIndex = students.Length;
-            lblStudentName.Text = students[studentIndex - 1].ToString();
+            if (students.Length > 0)
+            {
+                studentIndex = students.Length;
+                lblStudentName.Text = students[studentIndex - 1].ToString();
+            }
+
         }
         #endregion
 
@@ -211,12 +219,23 @@ namespace Assignment3
             }
         }
 
+        /// <summary>
+        /// reset all student data and return form to starting position
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             students = new string[0];
             grades = new int[0, 0];
             putResults();
-
+            lblStudentName.Text = "Student #1:";
+            lblNumberAssignments.Text = "Enter Assignment Number (1-X):";
+            txtNumberOfStudents.Text = "";
+            txtNumberOfAssignments.Text = "";
+            txtStudentName.Text = "";
+            txtAssignmentNumber.Text = "";
+            txtAssignmentScore.Text = "";
         }
     }
 }
