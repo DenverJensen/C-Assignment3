@@ -54,6 +54,7 @@ namespace Assignment3
             this.rtbResults = new System.Windows.Forms.RichTextBox();
             this.btnDisplayScores = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
+            this.lblError2 = new System.Windows.Forms.Label();
             this.gb_count.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbStudentInfo.SuspendLayout();
@@ -125,6 +126,7 @@ namespace Assignment3
             this.btnReset.TabIndex = 1;
             this.btnReset.Text = "Reset Scores";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // groupBox1
             // 
@@ -239,6 +241,7 @@ namespace Assignment3
             this.btnSaveScore.TabIndex = 4;
             this.btnSaveScore.Text = "Save Score";
             this.btnSaveScore.UseVisualStyleBackColor = true;
+            this.btnSaveScore.Click += new System.EventHandler(this.btnSaveScore_Click);
             // 
             // txtAssignmentScore
             // 
@@ -278,7 +281,7 @@ namespace Assignment3
             this.rtbResults.Name = "rtbResults";
             this.rtbResults.Size = new System.Drawing.Size(776, 206);
             this.rtbResults.TabIndex = 5;
-            this.rtbResults.Text = "";
+            this.rtbResults.Text = "Enter a number of students and assignments above";
             // 
             // btnDisplayScores
             // 
@@ -301,11 +304,23 @@ namespace Assignment3
             this.lblError.Text = "Please enter a valid number of Students and Assignments";
             this.lblError.Visible = false;
             // 
+            // lblError2
+            // 
+            this.lblError2.AutoSize = true;
+            this.lblError2.ForeColor = System.Drawing.Color.Red;
+            this.lblError2.Location = new System.Drawing.Point(133, 434);
+            this.lblError2.Name = "lblError2";
+            this.lblError2.Size = new System.Drawing.Size(244, 13);
+            this.lblError2.TabIndex = 8;
+            this.lblError2.Text = "Please enter a valid score and assignment number";
+            this.lblError2.Visible = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 670);
+            this.Controls.Add(this.lblError2);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnDisplayScores);
             this.Controls.Add(this.rtbResults);
@@ -355,6 +370,7 @@ namespace Assignment3
         private System.Windows.Forms.Label lblNumberAssignments;
         private System.Windows.Forms.Button btnDisplayScores;
         private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.Label lblError2;
     }
 }
 
