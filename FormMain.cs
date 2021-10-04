@@ -19,7 +19,7 @@ namespace Assignment3
         public int studentIndex = 1;
 
         /// <summary>
-        /// array of students
+        /// array of students names
         /// </summary>
         public string[] students = new string[0];
 

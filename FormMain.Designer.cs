@@ -95,7 +95,7 @@ namespace Assignment3
             // txtNumberOfStudents
             // 
             this.txtNumberOfStudents.Location = new System.Drawing.Point(161, 34);
-            this.txtNumberOfStudents.MaxLength = 1;
+            this.txtNumberOfStudents.MaxLength = 2;
             this.txtNumberOfStudents.Name = "txtNumberOfStudents";
             this.txtNumberOfStudents.Size = new System.Drawing.Size(70, 20);
             this.txtNumberOfStudents.TabIndex = 2;
